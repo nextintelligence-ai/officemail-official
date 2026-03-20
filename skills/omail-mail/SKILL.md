@@ -18,12 +18,12 @@ PREREQUISITE: Read ../omail-shared/SKILL.md for auth, global flags, and security
 
 | Command | Description |
 |---------|-------------|
-| `+send` | Send an email |
-| `+reply` | Reply (auto-threading) |
-| `+reply-all` | Reply-all |
-| `+forward` | Forward a message |
+| `+send` | Send an email (`-a` for attachments) |
+| `+reply` | Reply with auto-threading (`-a` for attachments) |
+| `+reply-all` | Reply-all (`-a` for attachments) |
+| `+forward` | Forward (`-a`, `--include-attachments` for originals) |
 | `+triage` | Unread inbox summary |
-| `+read` | Read message body |
+| `+read` | Read message body (`--save-attachments [dir]`) |
 | `+search` | Full-text search |
 | `+move` | Move between mailboxes |
 | `+flag` | Set/unset keywords |
