@@ -6,9 +6,6 @@ version: 0.1.8
 
 # omail setup
 
-IMPORTANT: `auth setup` is interactive and requires user input.
-Do NOT run it directly. Instead, ask the user to run it in their terminal.
-
 ## Step 1: Check binary
 
 Verify the binary exists:
@@ -19,15 +16,15 @@ If missing, ask the user to restart the session.
 
 ## Step 2: Auth setup
 
-Tell the user to run this command in their terminal (NOT via Claude):
+Ask the user for their JMAP server domain and Bearer token, then run:
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth setup
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup --url <domain> --token <token>
 
-They will enter their JMAP server domain and Bearer token interactively.
+Example:
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup --url jmap.example.com --token eyJhbGci...
 
 ## Step 3: Verify connection
-
-After the user completes auth setup, verify:
 
     ${CLAUDE_PLUGIN_DATA}/omail doctor
 
