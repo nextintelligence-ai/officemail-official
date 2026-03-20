@@ -18,11 +18,13 @@ Use this full path for all omail commands below.
 
 ## Auth
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth setup       # first-time: server URL + Bearer token
-    ${CLAUDE_PLUGIN_DATA}/omail auth token <t>   # update Bearer token
-    ${CLAUDE_PLUGIN_DATA}/omail auth whoami      # verify current session
-    ${CLAUDE_PLUGIN_DATA}/omail auth refresh     # force refresh session cache
-    ${CLAUDE_PLUGIN_DATA}/omail doctor           # diagnose connection, auth, capabilities
+    ${CLAUDE_PLUGIN_DATA}/omail auth login         # OAuth login (opens browser)
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup         # manual: server URL + Bearer token
+    ${CLAUDE_PLUGIN_DATA}/omail auth logout        # clear stored credentials
+    ${CLAUDE_PLUGIN_DATA}/omail auth token <t>     # update Bearer token
+    ${CLAUDE_PLUGIN_DATA}/omail auth whoami        # verify current session
+    ${CLAUDE_PLUGIN_DATA}/omail auth refresh       # force refresh session cache
+    ${CLAUDE_PLUGIN_DATA}/omail doctor             # diagnose connection, auth, capabilities
 
 ## Global flags
 

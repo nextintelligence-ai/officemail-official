@@ -1,6 +1,6 @@
 ---
 name: omail-setup
-description: "Set up Officemail CLI — configure JMAP server connection and verify it works"
+description: "Set up Officemail CLI — login via OAuth or configure JMAP server connection"
 version: 0.1.10
 ---
 
@@ -14,7 +14,22 @@ Verify the binary exists:
 
 If missing, ask the user to restart the session.
 
-## Step 2: Auth setup
+## Step 2: Login
+
+### Option A: OAuth login (recommended for OfficeNEXT users)
+
+Ask the user for their email address, then run:
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth login --email <email>
+
+For dev environment:
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth login --email <email> --env dev
+
+A browser window will open for authentication. The user clicks "Sign in",
+completes OAuth login in the popup, and tokens are saved automatically.
+
+### Option B: Manual setup (JMAP URL + Bearer token)
 
 Ask the user for their JMAP server domain and Bearer token, then run:
 

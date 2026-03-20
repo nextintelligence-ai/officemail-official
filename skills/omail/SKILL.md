@@ -19,7 +19,8 @@ Use this full path for all commands below.
 
 First-time setup:
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth setup    # enter JMAP URL and Bearer token
+    ${CLAUDE_PLUGIN_DATA}/omail auth login --email you@company.com  # OAuth login (opens browser)
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup    # or manual: JMAP URL + Bearer token
     ${CLAUDE_PLUGIN_DATA}/omail doctor        # verify connection and capabilities
 
 ## Quick Reference
@@ -81,11 +82,13 @@ First-time setup:
 
 ## Auth
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth setup       # interactive: JMAP URL + Bearer token
-    ${CLAUDE_PLUGIN_DATA}/omail auth token <t>   # update token
-    ${CLAUDE_PLUGIN_DATA}/omail auth whoami      # show session info
-    ${CLAUDE_PLUGIN_DATA}/omail auth refresh     # force refresh session cache
-    ${CLAUDE_PLUGIN_DATA}/omail doctor           # diagnose connection, auth, capabilities
+    ${CLAUDE_PLUGIN_DATA}/omail auth login         # OAuth login (opens browser)
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup         # manual: JMAP URL + Bearer token
+    ${CLAUDE_PLUGIN_DATA}/omail auth logout        # clear stored credentials
+    ${CLAUDE_PLUGIN_DATA}/omail auth token <t>     # update Bearer token
+    ${CLAUDE_PLUGIN_DATA}/omail auth whoami        # show session info
+    ${CLAUDE_PLUGIN_DATA}/omail auth refresh       # force refresh session cache
+    ${CLAUDE_PLUGIN_DATA}/omail doctor             # diagnose connection, auth, capabilities
 
 Environment variables (override config file):
 
