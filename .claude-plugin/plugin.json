@@ -6,6 +6,5 @@
     "name": "jiran.com",
     "email": "kiyong.kim@jiran.com"
   },
-  "repository": "https://github.com/ni-kiyong/officemail-plugin",
-  "hooks": "./hooks/hooks.json"
+  "repository": "https://github.com/ni-kiyong/officemail-plugin"
 }
