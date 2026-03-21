@@ -62,6 +62,7 @@ First-time setup:
 
     ${CLAUDE_PLUGIN_DATA}/omail mail mailbox get
     ${CLAUDE_PLUGIN_DATA}/omail mail mailbox query --params '{...}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail mailbox set --json '{"create":{"m1":{"name":"Archive"}}}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email get --params '{"ids":["<id>"]}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email query --params '{"filter":{"inMailbox":"INBOX"}}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email set --json '{"update":{"<id>":{"keywords/$seen":true}}}'
