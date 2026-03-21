@@ -1,7 +1,7 @@
 ---
 name: omail-mail-triage
 description: "Triage unread inbox, get email summaries, and follow triage-and-reply recipe"
-version: 0.1.15
+version: 0.1.16
 ---
 
 # omail mail +triage — Inbox Summary
