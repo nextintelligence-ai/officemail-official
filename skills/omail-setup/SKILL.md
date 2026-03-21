@@ -53,36 +53,20 @@ If this returns inbox data, setup is complete.
 
 ## Claude Desktop Setup
 
-### Step 1: Install omail binary
+### Step 1: Install via .mcpb
 
-Download the latest release binary for your platform from the
+Download the `.mcpb` file for your platform from the
 [releases page](https://github.com/ni-kiyong/officemail-plugin/releases)
-and place it in your PATH. Verify it works:
+(`officemail-{platform}.mcpb`). Double-click to install — the binary and
+MCP server config are included for one-click setup.
 
-    omail --version
+### Step 2: Login
 
-### Step 2: Configure Claude Desktop
-
-Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "officemail": {
-      "command": "omail",
-      "args": ["mcp", "serve"]
-    }
-  }
-}
-```
-
-### Step 3: Login
-
-Run in terminal first:
+Run in terminal:
 
     omail auth login --email you@company.com
 
-### Step 4: Restart Claude Desktop
+### Step 3: Restart Claude Desktop
 
 Restart Claude Desktop to load the MCP server. You should see officemail
 tools available in the tools menu.
