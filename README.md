@@ -39,6 +39,18 @@ Claude Desktop에서 MCP 서버로 사용할 수 있습니다.
 4. Claude Desktop을 재시작하면 11개 도구(tools), 1개 리소스(resource),
    2개 프롬프트(prompts)를 사용할 수 있습니다
 
+## 인증
+
+인증 정보는 `~/.config/officemail/config.json`에 저장됩니다 (chmod 600).
+Claude Code 플러그인, Claude Desktop MCP 서버, CLI 모두 같은 파일을 공유하므로
+한 곳에서 인증하면 어디서든 사용할 수 있습니다.
+
+```bash
+omail auth login --email you@company.com   # OAuth 로그인 (브라우저 열림)
+omail auth setup                           # 또는 수동 설정 (JMAP URL + 토큰)
+omail doctor                               # 연결 확인
+```
+
 ## 구성
 
 - **Skills** — 이메일/캘린더 관리를 위한 AI 에이전트 지시 파일
