@@ -1,7 +1,7 @@
 ---
 name: omail
 description: "Use when the user asks about email or calendar — read/send/triage mail, check agenda, create events, or manage their Officemail/JMAP mailbox. CLI for self-hosted Cyrus IMAP via JMAP."
-version: 0.2.34
+version: 0.2.35
 ---
 
 # omail — Officemail CLI
@@ -66,10 +66,22 @@ First-time setup:
     ${CLAUDE_PLUGIN_DATA}/omail calendar +agenda --days 14 --page-all    # next 2 weeks, all pages
     ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Meeting" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00"
     ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Review" --start "2026-03-25T14:00:00" --end "2026-03-25T15:00:00" --invite alice@example.com
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Standup" --start "2026-03-23T09:00:00" --end "2026-03-23T09:30:00" --rrule '{"frequency":"weekly","byDay":[{"day":"mo"},{"day":"we"},{"day":"fr"}]}'
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Holiday" --start "2026-03-25" --all-day
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Sync" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00" --alert 15 --online "https://zoom.us/j/123"
     ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --title "New Title"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --series --title "All Instances"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --recurrence-id "2026-04-07T09:00:00" --title "This One"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --add-invite bob@example.com
     ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id>
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id> --series
     ${CLAUDE_PLUGIN_DATA}/omail calendar +freebusy --start "2026-03-25T00:00:00" --end "2026-03-26T00:00:00"
     ${CLAUDE_PLUGIN_DATA}/omail calendar +rsvp --event-id <id> --status accepted
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +copy --event-id <id> --to-account <accountId>
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +parse --ical "BEGIN:VCALENDAR..."
+    ${CLAUDE_PLUGIN_DATA}/omail calendar create --name "Work" --color "#0000ff"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar delete --calendar-id <id>
+    ${CLAUDE_PLUGIN_DATA}/omail calendar share --calendar-id <id> --with user@example.com --role reader
 
 ### Schema
 

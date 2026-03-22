@@ -1,7 +1,9 @@
 ---
 name: omail-calendar
-description: "Calendar management helpers and raw JMAP calendar methods. Use when the user asks about calendar events, scheduling, agenda, free/busy status, or wants to create/update/delete events."
-version: 0.2.34
+description: "Calendar management helpers and raw JMAP calendar methods. Use when the
+  user asks about calendar events, scheduling, agenda, free/busy status, or wants to
+  create/update/delete events."
+version: 0.2.35
 ---
 
 # omail calendar — Calendar Management
@@ -14,56 +16,125 @@ PREREQUISITE: Read ../omail-shared/SKILL.md for auth, global flags, and security
     ${CLAUDE_PLUGIN_DATA}/omail calendar calendarevent get --params '{...}'
     ${CLAUDE_PLUGIN_DATA}/omail calendar calendar get --params '{...}'
 
-## Helpers
+## Event Helpers
 
 | Command | Description |
 |---------|-------------|
 | `+agenda` | Upcoming events (default: 7 days, `--page-all`) |
-| `+insert` | Create a new calendar event (`--invite` for attendees) |
-| `+update` | Update an existing event (`--series` for recurring) |
-| `+delete` | Delete an event (`--series` for recurring) |
+| `+insert` | Create event (`--rrule`, `--alert`, `--online`, `--all-day`, `--invite`) |
+| `+update` | Update event (`--series`, `--recurrence-id`, `--add-invite`, `--remove-invite`) |
+| `+delete` | Delete event (`--series`, `--recurrence-id`) |
 | `+freebusy` | Check free/busy status for a time range |
 | `+rsvp` | Accept, decline, or tentative an invitation |
+| `+copy` | Copy event to another account (CalendarEvent/copy) |
+| `+parse` | Parse iCalendar data into JSCalendar (CalendarEvent/parse) |
+
+## Calendar Management (no `+` prefix)
+
+| Command | Description |
+|---------|-------------|
+| `create` | Create a new calendar (`--name`, `--color`, `--visible`) |
+| `update` | Update a calendar (`--calendar-id`, `--name`, `--color`) |
+| `delete` | Delete a calendar (`--calendar-id`) |
+| `share` | Share calendar (`--calendar-id`, `--with`, `--role`) |
+| `unshare` | Remove sharing (`--calendar-id`, `--with`) |
 
 ## Usage Examples
+
+### Agenda
 
     ${CLAUDE_PLUGIN_DATA}/omail calendar +agenda
     ${CLAUDE_PLUGIN_DATA}/omail calendar +agenda --days 14 --timezone Asia/Seoul
     ${CLAUDE_PLUGIN_DATA}/omail calendar +agenda --page-all --limit 100
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Team Meeting" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00"
+
+### Create events
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Meeting" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00"
     ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Lunch" --start "2026-03-25T12:00:00" --end "2026-03-25T13:00:00" --location "Cafe"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Review" --start "2026-03-25T14:00:00" --end "2026-03-25T15:00:00" --invite alice@example.com bob@example.com
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Sprint" --start "2026-03-25T09:00:00" --end "2026-03-25T10:00:00" --description "Weekly sprint review" --calendar <calendarId>
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Review" --start "2026-03-25T14:00:00" --end "2026-03-25T15:00:00" --invite alice@example.com
+
+### Recurrence
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Standup" --start "2026-03-23T09:00:00" --end "2026-03-23T09:30:00" --rrule '{"frequency":"weekly","byDay":[{"day":"mo"},{"day":"we"},{"day":"fr"}]}'
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Sprint" --start "2026-03-23T10:00:00" --end "2026-03-23T10:30:00" --rrule '{"frequency":"daily","count":10}'
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --series --title "New Series Title"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --recurrence-id "2026-04-07T09:00:00" --title "Special"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id> --recurrence-id "2026-04-07T09:00:00"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id> --series
+
+### Alerts and online meetings
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Meeting" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00" --alert 15 --alert 60
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Sync" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00" --online "https://zoom.us/j/123"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Meeting" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00" --use-default-alerts
+
+### All-day events
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Holiday" --start "2026-03-25" --all-day
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Conference" --start "2026-03-25" --end "2026-03-27" --all-day
+
+### Event properties
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +insert --title "Tentative" --start "2026-03-25T10:00:00" --end "2026-03-25T11:00:00" --status tentative --privacy private --priority 5
+
+### RSVP
+
     ${CLAUDE_PLUGIN_DATA}/omail calendar +rsvp --event-id <id> --status accepted
     ${CLAUDE_PLUGIN_DATA}/omail calendar +rsvp --event-id <id> --status declined
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +rsvp --event-id <id> --status tentative
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --title "New Title"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --start "2026-03-25T14:00:00" --end "2026-03-25T15:00:00"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --location "Room 302" --description "Updated agenda"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --series --title "Weekly Standup"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id>
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +delete --event-id <id> --series
+
+### Participant management
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --add-invite bob@example.com
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +update --event-id <id> --remove-invite bob@example.com
+
+### Copy and parse
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +copy --event-id <id> --to-account <accountId>
+    ${CLAUDE_PLUGIN_DATA}/omail calendar +parse --ical "BEGIN:VCALENDAR..."
+    cat invite.ics | ${CLAUDE_PLUGIN_DATA}/omail calendar +parse
+
+### Calendar CRUD
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar create --name "Work" --color "#0000ff"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar update --calendar-id <id> --name "Personal" --color "#ff0000"
+    ${CLAUDE_PLUGIN_DATA}/omail calendar delete --calendar-id <id>
+
+### Calendar sharing
+
+    ${CLAUDE_PLUGIN_DATA}/omail calendar share --calendar-id <id> --with user@example.com --role reader
+    ${CLAUDE_PLUGIN_DATA}/omail calendar unshare --calendar-id <id> --with user@example.com
+
+### Freebusy
+
     ${CLAUDE_PLUGIN_DATA}/omail calendar +freebusy --start "2026-03-25T00:00:00" --end "2026-03-26T00:00:00"
-    ${CLAUDE_PLUGIN_DATA}/omail calendar +freebusy --start "2026-03-25T00:00:00" --end "2026-03-26T00:00:00" --email alice@example.com
 
 ## Raw methods
 
     ${CLAUDE_PLUGIN_DATA}/omail calendar calendarevent get --params '{...}'
     ${CLAUDE_PLUGIN_DATA}/omail calendar calendarevent query --params '{"filter":{}}'
-    ${CLAUDE_PLUGIN_DATA}/omail calendar calendarevent set --json '{"create":{"e1":{"title":"Test","start":"2026-03-25T10:00:00","duration":"PT1H","calendarIds":{"<calId>":true}}}}'
+    ${CLAUDE_PLUGIN_DATA}/omail calendar calendarevent set --json '{"create":{"e1":{...}}}'
     ${CLAUDE_PLUGIN_DATA}/omail calendar calendar get --params '{}'
+    ${CLAUDE_PLUGIN_DATA}/omail calendar calendar set --json '{"create":{"c1":{"name":"Work"}}}'
 
 ## Notes
 
-- Server must support `urn:ietf:params:jmap:calendars` capability (check with `omail doctor`)
-- Dates use ISO 8601 local time, no milliseconds: `2026-03-25T10:00:00` (not `.000Z`)
-- Recurring events: use `--series` flag on `+update` and `+delete`
-- `--invite` adds participants with iMIP `sendTo` (server sends invitations automatically)
-- `+rsvp` updates your `participationStatus` on an invited event
-- `+agenda` and `+freebusy` use client-side date filtering
-  (server does not support `after`/`before` filters)
-- `+agenda` supports `--days`, `--timezone`, `--limit`, `--page-all`
-- `+insert` auto-resolves default calendar via `Calendar/get` when `--calendar` is omitted
-- JSCalendar uses `locations` (plural, keyed object) — not `location`
-- `Calendar/query` is not supported; use `Calendar/get` to list calendars
+- Server must support `urn:ietf:params:jmap:calendars` capability
+  (check with `omail doctor`)
+- Dates use ISO 8601 local time, no milliseconds: `2026-03-25T10:00:00`
+- `--rrule` takes JSCalendar RecurrenceRule JSON;
+  `frequency` is required (weekly, daily, monthly, etc.)
+- `--series` updates/deletes the entire recurring series;
+  `--recurrence-id <UTC-datetime>` targets a single instance
+- Updating/deleting a recurring event without `--series` or
+  `--recurrence-id` returns an error prompting the user to specify
+- `--alert <minutes>` is repeatable; `--use-default-alerts` overrides custom alerts
+- `--online` only accepts https/http URLs (blocks javascript:/data:)
+- `--all-day` requires date-only `--start` (YYYY-MM-DD); duration in days
+- `--add-invite` auto-creates organizer from session when event has no participants
+- `+copy` requires target account to have calendar capability
+- `+parse` checks capability + catches unknownMethod (belt+suspenders)
+- Calendar sharing requires `urn:ietf:params:jmap:sharing` capability;
+  roles: reader, writer, admin
+- Multi-user freebusy (`--email`) requires
+  `urn:ietf:params:jmap:principals` capability
 - Always use `--dry-run` first when creating or modifying events via AI
