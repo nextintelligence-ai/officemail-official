@@ -3,7 +3,7 @@ name: omail-mail
 description: "Email management via omail CLI — send, reply, forward, triage inbox,
   read messages, search, move, flag, draft, watch for new mail, and raw JMAP mail
   methods. Use when the user asks to read, send, search, organize, or manage email."
-version: 0.2.48
+version: 0.2.49
 ---
 
 # omail mail — Officemail Email Management
@@ -33,7 +33,7 @@ version: 0.2.48
 | `+move` | Move between mailboxes |
 | `+flag` | Set/unset keywords |
 | `+draft` | Save to Drafts (`--cc`, `--html`) |
-| `+watch` | Watch for new emails (NDJSON stream, `--types`) |
+| `+watch` | Watch for new emails via EventSource (`--raw`, `--ping`) |
 
 ## Usage examples
 
@@ -69,7 +69,9 @@ version: 0.2.48
     ${CLAUDE_PLUGIN_DATA}/omail mail +move --message-id <id> --to Archive
     ${CLAUDE_PLUGIN_DATA}/omail mail +flag --message-id <id> --set '$flagged'
     ${CLAUDE_PLUGIN_DATA}/omail mail +flag --message-id <id> --unset '$seen'
-    ${CLAUDE_PLUGIN_DATA}/omail mail +watch
+    ${CLAUDE_PLUGIN_DATA}/omail mail +watch                            # enriched new email stream
+    ${CLAUDE_PLUGIN_DATA}/omail mail +watch --raw                      # raw SSE events
+    ${CLAUDE_PLUGIN_DATA}/omail mail +watch --ping 30                  # custom ping interval
 
 ## +send flags
 
