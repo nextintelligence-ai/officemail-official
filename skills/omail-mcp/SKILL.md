@@ -10,6 +10,7 @@ version: 0.2.38
 
 Officemail runs as an MCP server for direct AI integration
 (Claude Desktop, Claude Code, or any MCP-compatible client).
+Connects only to the Officemail service — not compatible with other email/calendar providers.
 
 ## Start
 

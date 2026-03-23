@@ -8,8 +8,9 @@ version: 0.2.38
 
 # omail — Officemail CLI
 
-Officemail CLI for AI — let your AI agent read, send, and manage email and calendar.
-Structured JSON output, dry-run safety, and JMAP-native.
+Officemail CLI for AI — let your AI agent read, send, and manage email and calendar
+on the Officemail service (Cyrus IMAP + Postfix based). This tool works only with
+Officemail and does not support other email services or generic JMAP servers.
 
 ## Binary path
 

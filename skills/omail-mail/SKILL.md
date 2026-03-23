@@ -6,7 +6,9 @@ description: "Email management via omail CLI — send, reply, forward, triage in
 version: 0.2.38
 ---
 
-# omail mail — Email Management
+# omail mail — Officemail Email Management
+
+> Works only with the Officemail service. Not compatible with other email providers.
 
 ## Binary path
 

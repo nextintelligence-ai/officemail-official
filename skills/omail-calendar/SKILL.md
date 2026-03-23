@@ -7,7 +7,9 @@ description: "Calendar management via omail CLI — view agenda, create/update/d
 version: 0.2.38
 ---
 
-# omail calendar — Calendar Management
+# omail calendar — Officemail Calendar Management
+
+> Works only with the Officemail service. Not compatible with other calendar providers.
 
 ## Binary path
 
