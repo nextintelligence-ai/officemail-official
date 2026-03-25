@@ -75,7 +75,7 @@ Claude Code에서 자연어로 사용할 수 있습니다:
 
 - "안 읽은 메일 요약해줘"
 - "오늘 온 메일 중 중요한 것만 알려줘"
-- "chulsoo@company.com에게 회의 일정 확인 메일 보내줘"
+- "`someone@example.com`에게 회의 일정 확인 메일 보내줘"
 - "이 메일에 답장해줘: 참석하겠습니다"
 - "지난주 예산 관련 메일 찾아줘"
 - "새 메일이 오면 텔레그램으로 알려줘" (`+watch` 사용)
@@ -101,6 +101,29 @@ Claude Code에서 자연어로 사용할 수 있습니다:
 
 실행파일은 [릴리즈 페이지](https://github.com/ni-kiyong/officemail-plugin/releases)에서
 다운로드할 수 있으며, 플러그인 설치 시 자동으로 다운로드됩니다.
+
+## 업데이트
+
+### Claude Code (CLI)
+
+```bash
+claude plugin update officemail
+```
+
+### Claude Code 내부
+
+```text
+claude plugin update officemail@officemail
+```
+
+또는 `/plugin` → Marketplaces 탭에서 업데이트할 수 있습니다.
+업데이트 후 세션을 종료하고 다시 시작해야 변경 사항이 적용됩니다.
+실행파일(`omail`)은 새 세션 시작 시 훅이 자동으로 업데이트합니다.
+
+### Claude Desktop
+
+[릴리즈 페이지](https://github.com/ni-kiyong/officemail-plugin/releases)에서
+최신 `.mcpb` 파일을 다운로드하여 더블클릭하면 덮어쓰기 설치됩니다.
 
 ## 수동 설치
 
