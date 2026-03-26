@@ -1,4 +1,4 @@
-# Officemail Plugin 0.2.61
+# Officemail Plugin 0.2.62
 
 AI 에이전트가 Officemail 서비스의 이메일과 캘린더를 읽고, 보내고, 관리할 수 있는 Claude Code 플러그인이자 MCP 서버입니다.
 Officemail(Cyrus IMAP + Postfix 기반) 전용이며, 다른 이메일 서비스나 JMAP 서버에서는 동작하지 않습니다.
@@ -31,12 +31,11 @@ claude plugin install officemail@officemail-plugin
 /plugin install officemail@officemail-plugin
 ```
 
-팀과 공유하려면 `--scope project`, 개인 전용이면 `--scope local`을 추가합니다
-(기본값은 `user`).
+설치 후 세션을 재시작해야 플러그인이 로드됩니다.
 
 #### 3단계 — 인증 설정
 
-설치 후 설정 스킬을 실행하세요:
+새 세션에서 설정 스킬을 실행하세요:
 
 ```text
 /officemail:omail-setup
