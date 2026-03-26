@@ -26,7 +26,7 @@ MCP server config are included for one-click setup.
 
 ### Step 2: Login
 
-Run in terminal:
+Run in terminal (always prod unless user explicitly requests dev):
 
     omail auth login --email you@company.com
 

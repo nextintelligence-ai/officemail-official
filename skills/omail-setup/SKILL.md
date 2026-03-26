@@ -30,9 +30,7 @@ Ask the user for their email address, then run:
 
     ${CLAUDE_PLUGIN_DATA}/omail auth login --email <email>
 
-For dev environment:
-
-    ${CLAUDE_PLUGIN_DATA}/omail auth login --email <email> --env dev
+**Always use prod (default). Only add `--env dev` if the user explicitly requests dev.**
 
 A browser window will open for authentication. The user clicks "Sign in",
 completes OAuth login in the popup, and tokens are saved automatically.
