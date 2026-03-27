@@ -22,7 +22,6 @@ When installed as a plugin, the omail binary is at:
 | Need | Skill |
 |------|-------|
 | First-time setup, login, auth, doctor | omail-setup |
-| MCP server, Claude Desktop config, MCP tool list | omail-mcp |
 | Email: send, reply, triage, read, search, move, flag, draft, watch | omail-mail |
 | Calendar: agenda, events, free/busy, RSVP, sharing | omail-calendar |
 
