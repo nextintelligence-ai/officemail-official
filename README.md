@@ -1,4 +1,4 @@
-# Officemail Plugin 0.2.85
+# Officemail Plugin 0.2.86
 
 AI 에이전트가 Officemail 서비스의 이메일과 캘린더를 읽고, 보내고, 관리할 수 있는 Claude Code 플러그인이자 MCP 서버입니다.
 Officemail(Cyrus IMAP + Postfix 기반) 전용이며, 다른 이메일 서비스나 JMAP 서버에서는 동작하지 않습니다.
@@ -14,21 +14,21 @@ Officemail(Cyrus IMAP + Postfix 기반) 전용이며, 다른 이메일 서비스
 CLI 또는 세션 내부에서 실행합니다 (둘 다 동일하게 동작):
 
 ```bash
-# CLI
-claude plugin marketplace add ni-kiyong/officemail-plugin
+# 세션 내부
+/plugin marketplace add nextintelligence-ai/officemail-official
 
-# 또는 세션 내부
-/plugin marketplace add ni-kiyong/officemail-plugin
+# 또는 CLI
+claude plugin marketplace add nextintelligence-ai/officemail-official
 ```
 
 #### 2단계 — 플러그인 설치
 
 ```bash
-# CLI
-claude plugin install officemail@officemail-plugin
+# 세션 내부
+/plugin install officemail@officemail
 
-# 또는 세션 내부
-/plugin install officemail@officemail-plugin
+# 또는 CLI
+claude plugin install officemail@officemail
 ```
 
 설치 후 세션을 재시작해야 플러그인이 로드됩니다.
@@ -45,7 +45,7 @@ claude plugin install officemail@officemail-plugin
 
 Claude Desktop에서 MCP 서버로 사용할 수 있습니다.
 
-1. [릴리즈 페이지](https://github.com/ni-kiyong/officemail-plugin/releases)에서
+1. [릴리즈 페이지](https://github.com/nextintelligence-ai/officemail-official/releases)에서
    플랫폼에 맞는 `.mcpb` 파일을 다운로드합니다 (`officemail-{platform}.mcpb`)
 2. 더블클릭하면 바이너리와 MCP 서버 설정이 자동으로 설치됩니다
 3. 터미널에서 인증을 설정합니다:
@@ -60,35 +60,35 @@ Claude Desktop에서 MCP 서버로 사용할 수 있습니다.
 
 ### Claude Code
 
-#### CLI (터미널에서 직접 실행)
-
-```bash
-claude plugin marketplace update officemail-plugin
-claude plugin update officemail@officemail-plugin
-```
-
 #### 세션 내부 (대화형 UI)
 
 ```text
 /plugin
 ```
 
-1. **Marketplaces** 탭 → officemail-plugin 마켓플레이스를 갱신합니다
+1. **Marketplaces** 탭 → officemail 마켓플레이스를 갱신합니다
 2. **Installed** 탭 → officemail 플러그인을 선택하여 업데이트합니다
+
+#### CLI (터미널에서 직접 실행)
+
+```bash
+claude plugin marketplace update officemail
+claude plugin update officemail@officemail
+```
 
 업데이트 후 세션을 재시작하면 적용됩니다.
 실행파일(`omail`)도 새 세션 시작 시 훅이 자동으로 업데이트합니다.
 
 #### 자동 업데이트 설정
 
-Marketplaces 탭에서 officemail-plugin의 auto-update를 활성화하면,
+Marketplaces 탭에서 officemail의 auto-update를 활성화하면,
 Claude Code 시작 시 마켓플레이스 갱신과 플러그인 업데이트가 자동으로 수행됩니다.
 써드파티 마켓플레이스는 기본 비활성화이므로 직접 켜야 합니다.
 실행파일(`omail`) 업데이트를 위해 세션 재시작이 필요합니다.
 
 ### Claude Desktop
 
-[릴리즈 페이지](https://github.com/ni-kiyong/officemail-plugin/releases)에서
+[릴리즈 페이지](https://github.com/nextintelligence-ai/officemail-official/releases)에서
 최신 `.mcpb` 파일을 다운로드하여 더블클릭하면 덮어쓰기 설치됩니다.
 
 ## 제거
@@ -96,14 +96,55 @@ Claude Code 시작 시 마켓플레이스 갱신과 플러그인 업데이트가
 ### Claude Code
 
 ```bash
-# CLI
-claude plugin uninstall officemail@officemail-plugin
+# 세션 내부
+/plugin uninstall officemail
 
-# 또는 세션 내부
-/plugin uninstall officemail@officemail-plugin
+# 또는 CLI
+claude plugin uninstall officemail
 ```
 
-데이터를 보존하면서 제거하려면 `--keep-data`를 추가합니다.
+마켓플레이스도 제거하려면:
+
+```bash
+claude plugin marketplace remove nextintelligence-ai/officemail-official
+```
+
+### Claude Desktop
+
+1. MCP 설정 파일에서 `officemail` 항목을 삭제합니다:
+   - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+   - **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+2. Claude Desktop을 재시작합니다
+
+### 인증 및 데이터 제거
+
+`~/.config/officemail/`의 인증 정보는 CLI, Claude Code 플러그인,
+Claude Desktop MCP 서버가 공유합니다.
+**모든 클라이언트를 제거한 후에만** 삭제하세요:
+
+```bash
+# 인증 및 설정
+rm -rf ~/.config/officemail
+
+# 로그 — macOS
+rm -rf ~/Library/Logs/officemail
+
+# 로그 — Linux
+rm -rf ~/.local/state/officemail
+```
+
+Windows (PowerShell):
+
+```powershell
+Remove-Item "$env:LOCALAPPDATA\officemail" -Recurse -Force
+```
+
+### 삭제 확인
+
+```bash
+which omail                  # 출력 없으면 정상
+ls ~/.config/officemail      # "No such file or directory"이면 정상
+```
 
 ## 인증
 
@@ -127,11 +168,18 @@ omail doctor                               # 연결 확인
 omail --profile work auth login --email you@work.com
 omail --profile personal auth login --email you@personal.com
 
-# 프로필 목록 / 전환 / 삭제
+# 프로필 목록 / 전환 / 삭제 / 이름 변경
 omail auth list                    # 모든 프로필 조회
 omail auth switch work             # 기본 프로필 변경
 omail auth remove old-profile      # 프로필 삭제
+omail auth rename old-name new-name  # 프로필 이름 변경
 omail auth status                  # 전체 프로필 연결 상태 확인
+
+# 프로필 별칭 관리
+omail auth alias add work w        # 별칭 추가
+omail auth alias remove work w     # 별칭 삭제
+omail auth alias list              # 모든 별칭 조회
+omail auth alias list work         # 특정 프로필 별칭 조회
 
 # 특정 프로필로 명령 실행
 omail --profile work mail +triage
@@ -195,13 +243,13 @@ Claude Code에서 자연어로 사용할 수 있습니다:
 - **Hooks** — 첫 세션 시작 시 `omail` 실행파일 자동 설치
 - **실행파일** — macOS, Linux, Windows (arm64, x64) 6개 플랫폼 빌드 제공
 
-실행파일은 [릴리즈 페이지](https://github.com/ni-kiyong/officemail-plugin/releases)에서
+실행파일은 [릴리즈 페이지](https://github.com/nextintelligence-ai/officemail-official/releases)에서
 다운로드할 수 있으며, 플러그인 설치 시 자동으로 다운로드됩니다.
 
 ## 수동 설치
 
 ```bash
-curl -L -o omail https://github.com/ni-kiyong/officemail-plugin/releases/latest/download/omail-darwin-arm64
+curl -L -o omail https://github.com/nextintelligence-ai/officemail-official/releases/latest/download/omail-darwin-arm64
 chmod +x omail
 sudo mv omail /usr/local/bin/
 ```

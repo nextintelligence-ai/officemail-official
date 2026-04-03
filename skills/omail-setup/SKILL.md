@@ -67,7 +67,14 @@ If this returns inbox data, setup is complete.
     ${CLAUDE_PLUGIN_DATA}/omail auth list          # list all profiles
     ${CLAUDE_PLUGIN_DATA}/omail auth switch <name> # change default profile
     ${CLAUDE_PLUGIN_DATA}/omail auth remove <name> # remove a profile
+    ${CLAUDE_PLUGIN_DATA}/omail auth rename <old> <new>  # rename a profile
     ${CLAUDE_PLUGIN_DATA}/omail auth status        # health check all profiles
+
+## Alias commands
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth alias add <profile> <alias>    # add alias
+    ${CLAUDE_PLUGIN_DATA}/omail auth alias remove <profile> <alias> # remove alias
+    ${CLAUDE_PLUGIN_DATA}/omail auth alias list [profile]           # list aliases
 
 ## Multi-profile usage
 
