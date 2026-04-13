@@ -1,7 +1,7 @@
 {
   "name": "officemail",
-  "version": "0.2.88",
-  "description": "Officemail CLI for AI — let your AI agent read, send, and manage Officemail email and calendar.",
+  "version": "0.2.89",
+  "description": "OfficeMail CLI for AI — let your AI agent read, send, and manage OfficeMail email and calendar.",
   "author": {
     "name": "jiran.com",
     "email": "kiyong.kim@jiran.com"

@@ -7,9 +7,9 @@ description:
   events."
 ---
 
-# omail calendar — Officemail Calendar Management
+# omail calendar — OfficeMail Calendar Management
 
-> Works only with the Officemail service. Not compatible with other calendar providers.
+> Works only with the OfficeMail service. Not compatible with other calendar providers.
 
 ## Binary path
 

@@ -1,16 +1,16 @@
 ---
 name: omail
 description:
-  "Overview and quick reference for Officemail CLI (omail). Use when the
+  "Overview and quick reference for OfficeMail CLI (omail). Use when the
   user asks general questions about omail capabilities, available commands, schema
   introspection, or environment configuration."
 ---
 
-# omail — Officemail CLI
+# omail — OfficeMail CLI
 
-Officemail CLI for AI — let your AI agent read, send, and manage email and calendar
-on the Officemail service (Cyrus IMAP + Postfix based). This tool works only with
-Officemail and does not support other email services or generic JMAP servers.
+OfficeMail CLI for AI — let your AI agent read, send, and manage email and calendar
+on the OfficeMail service (Cyrus IMAP + Postfix based). This tool works only with
+OfficeMail and does not support other email services or generic JMAP servers.
 
 ## Binary path
 

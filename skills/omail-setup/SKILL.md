@@ -1,15 +1,15 @@
 ---
 name: omail-setup
 description:
-  "Set up Officemail CLI — OAuth login, manual JMAP configuration, token
+  "Set up OfficeMail CLI — OAuth login, manual JMAP configuration, token
   refresh, auth troubleshooting, multi-profile management, and connection diagnostics
   (doctor). Use when the user asks to log in, configure auth, fix connection issues,
   manage multiple accounts, or set up omail for the first time."
 ---
 
-# omail setup — Officemail Auth & Diagnostics
+# omail setup — OfficeMail Auth & Diagnostics
 
-> This tool connects only to the Officemail service (Cyrus IMAP + Postfix based).
+> This tool connects only to the OfficeMail service (Cyrus IMAP + Postfix based).
 
 ## Binary path
 
@@ -37,7 +37,7 @@ Ask the user for their email address, then run:
 A browser window will open for authentication. The user clicks "Sign in",
 completes OAuth login in the popup, and tokens are saved automatically.
 
-#### Option B: Manual setup (Officemail JMAP URL + Bearer token)
+#### Option B: Manual setup (OfficeMail JMAP URL + Bearer token)
 
     ${CLAUDE_PLUGIN_DATA}/omail auth setup --url <officemail-domain> --token <token>
     ${CLAUDE_PLUGIN_DATA}/omail --profile work auth setup --url <domain> --token <token>

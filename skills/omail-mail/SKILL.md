@@ -6,9 +6,9 @@ description: "Email management via omail CLI — send, reply, forward, redirect,
   organize, or manage email."
 ---
 
-# omail mail — Officemail Email Management
+# omail mail — OfficeMail Email Management
 
-> Works only with the Officemail service. Not compatible with other email providers.
+> Works only with the OfficeMail service. Not compatible with other email providers.
 
 ## Binary path
 

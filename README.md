@@ -1,13 +1,13 @@
-# Officemail Official Marketplace 0.3
+# OfficeMail Official Marketplace 0.3
 
-Officemail 서비스의 공식 마켓플레이스입니다.
-메일, 캘린더 등 Officemail이 제공하는 서비스를 AI 에이전트에서 사용할 수 있습니다.
+OfficeMail 서비스의 공식 마켓플레이스입니다.
+메일, 캘린더 등 OfficeMail이 제공하는 서비스를 AI 에이전트에서 사용할 수 있습니다.
 
-## Officemail CLI 0.2.88
+## OfficeMail CLI 0.2.89
 
-AI 에이전트가 Officemail 서비스의 이메일과 캘린더를 읽고, 보내고, 관리할 수 있는
+AI 에이전트가 OfficeMail 서비스의 이메일과 캘린더를 읽고, 보내고, 관리할 수 있는
 Claude Code 플러그인이자 MCP 서버입니다.
-Officemail(Cyrus IMAP + Postfix 기반) 전용이며,
+OfficeMail(Cyrus IMAP + Postfix 기반) 전용이며,
 다른 이메일 서비스나 JMAP 서버에서는 동작하지 않습니다.
 
 ### 설치
@@ -135,13 +135,19 @@ claude plugin marketplace remove nextintelligence-ai/officemail-official
 
 #### 인증 및 데이터 제거
 
-`~/.config/officemail/`의 인증 정보는 CLI, Claude Code 플러그인,
-Claude Desktop MCP 서버가 공유합니다.
+`~/.config/officemail/`의 설정 파일과 시스템 키체인의 인증 토큰은
+CLI, Claude Code 플러그인, Claude Desktop MCP 서버가 공유합니다.
 **모든 클라이언트를 제거한 후에만** 삭제하세요:
 
 ```bash
-# 인증 및 설정
+# 설정 파일
 rm -rf ~/.config/officemail
+
+# 키체인 항목 — macOS (항목이 없을 때까지 반복)
+security delete-generic-password -s officemail-cli
+
+# 키체인 항목 — Linux
+secret-tool clear service officemail-cli
 
 # 로그 — macOS
 rm -rf ~/Library/Logs/officemail
@@ -153,6 +159,7 @@ rm -rf ~/.local/state/officemail
 Windows (PowerShell):
 
 ```powershell
+# 설정 및 암호화된 토큰
 Remove-Item "$env:LOCALAPPDATA\officemail" -Recurse -Force
 ```
 
@@ -165,9 +172,11 @@ ls ~/.config/officemail      # "No such file or directory"이면 정상
 
 ### 인증
 
-인증 정보는 `~/.config/officemail/config.json`에 저장됩니다 (chmod 600).
-Claude Code 플러그인, Claude Desktop MCP 서버, CLI 모두 같은 파일을 공유하므로
-한 곳에서 인증하면 어디서든 사용할 수 있습니다.
+인증 토큰은 플랫폼 보안 저장소(macOS Keychain, Linux Secret Service,
+Windows DPAPI)에 저장됩니다. 설정 파일(`~/.config/officemail/config.json`)에는
+토큰이 포함되지 않습니다.
+Claude Code 플러그인, Claude Desktop MCP 서버, CLI 모두 같은 인증 정보를
+공유하므로 한 곳에서 인증하면 어디서든 사용할 수 있습니다.
 
 ```bash
 omail auth login --email you@company.com   # OAuth 로그인 (브라우저 열림)
@@ -177,7 +186,7 @@ omail doctor                               # 연결 확인
 
 ### 멀티 프로필
 
-여러 Officemail 계정을 프로필로 관리할 수 있습니다.
+여러 OfficeMail 계정을 프로필로 관리할 수 있습니다.
 기존 단일 계정 설정은 첫 실행 시 자동으로 마이그레이션됩니다.
 
 ```bash
@@ -251,7 +260,7 @@ Claude Code에서 자연어로 사용할 수 있습니다:
 
 #### 설정
 
-- "Officemail 로그인해줘"
+- "OfficeMail 로그인해줘"
 - "연결 상태 확인해줘" (`doctor`)
 
 ### 구성
