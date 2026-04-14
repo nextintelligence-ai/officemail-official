@@ -4,11 +4,26 @@ description: "Email management via omail CLI — send, reply, forward, redirect,
   triage inbox, read messages, search, move, flag, draft, watch for new mail,
   and raw JMAP mail methods. Use when the user asks to read, send, search,
   organize, or manage email."
+argument-hint: "[send | reply | forward | triage | read | search | move | flag | draft | watch]"
 ---
 
 # omail mail — OfficeMail Email Management
 
 > Works only with the OfficeMail service. Not compatible with other email providers.
+
+## Argument routing
+
+- `$ARGUMENTS` = `send` → skip to **Send & reply** section
+- `$ARGUMENTS` = `triage` → skip to **Read & triage** section
+- `$ARGUMENTS` = `search` → skip to **Search by date range** recipe
+- `$ARGUMENTS` = `read` → skip to **Read & triage** section
+- `$ARGUMENTS` = `reply` → skip to **Send & reply** section
+- `$ARGUMENTS` = `forward` → skip to **Send & reply** section
+- `$ARGUMENTS` = `move` → skip to **Draft, organize, watch** section
+- `$ARGUMENTS` = `flag` → skip to **Draft, organize, watch** section
+- `$ARGUMENTS` = `draft` → skip to **Draft, organize, watch** section
+- `$ARGUMENTS` = `watch` → skip to **Draft, organize, watch** section
+- Empty or anything else → use full skill reference
 
 ## Binary path
 

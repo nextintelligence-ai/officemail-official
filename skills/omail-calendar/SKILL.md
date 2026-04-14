@@ -5,11 +5,25 @@ description:
   events, recurring events, free/busy, RSVP, calendar CRUD, sharing, and raw JMAP
   calendar methods. Use when the user asks about calendar, scheduling, agenda, or
   events."
+argument-hint: "[agenda | insert | update | delete | freebusy | rsvp | copy | parse | share]"
 ---
 
 # omail calendar — OfficeMail Calendar Management
 
 > Works only with the OfficeMail service. Not compatible with other calendar providers.
+
+## Argument routing
+
+- `$ARGUMENTS` = `agenda` → skip to **Agenda** section
+- `$ARGUMENTS` = `insert` → skip to **Create events** section
+- `$ARGUMENTS` = `freebusy` → skip to **Freebusy** section
+- `$ARGUMENTS` = `update` → skip to **Recurrence** section
+- `$ARGUMENTS` = `delete` → skip to **Recurrence** section
+- `$ARGUMENTS` = `rsvp` → skip to **RSVP** section
+- `$ARGUMENTS` = `copy` → skip to **Copy and parse** section
+- `$ARGUMENTS` = `parse` → skip to **Copy and parse** section
+- `$ARGUMENTS` = `share` → skip to **Calendar sharing** section
+- Empty or anything else → use full skill reference
 
 ## Binary path
 

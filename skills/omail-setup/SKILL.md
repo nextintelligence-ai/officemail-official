@@ -5,11 +5,23 @@ description:
   refresh, auth troubleshooting, multi-profile management, and connection diagnostics
   (doctor). Use when the user asks to log in, configure auth, fix connection issues,
   manage multiple accounts, or set up omail for the first time."
+argument-hint: "[doctor | login | logout | reset | report | status | alias]"
 ---
 
 # omail setup — OfficeMail Auth & Diagnostics
 
 > This tool connects only to the OfficeMail service (Cyrus IMAP + Postfix based).
+
+## Argument routing
+
+- `$ARGUMENTS` = `doctor` → skip to **Diagnostics** section
+- `$ARGUMENTS` = `login` → skip to **Re-authenticate**
+- `$ARGUMENTS` = `logout` → skip to **Logout**
+- `$ARGUMENTS` = `reset` → skip to **Reset**
+- `$ARGUMENTS` = `report` → skip to **Report (send debug logs)**
+- `$ARGUMENTS` = `status` → skip to **Multi-profile commands** section
+- `$ARGUMENTS` = `alias` → skip to **Alias commands** section
+- Empty or anything else → run the full setup flow from Step 1
 
 ## Binary path
 
@@ -23,14 +35,14 @@ description:
 
 If missing, ask the user to restart the session.
 
-### Step 2: Login
+### Step 2: Setup
 
 #### Option A: OAuth login (recommended for OfficeNEXT users)
 
 Ask the user for their email address, then run:
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth login --email <email>
-    ${CLAUDE_PLUGIN_DATA}/omail --profile work auth login --email <email>
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup --email <email>
+    ${CLAUDE_PLUGIN_DATA}/omail --profile work auth setup --email <email>
 
 **Always use prod (default). Only add `--env dev` if the user explicitly requests dev.**
 
@@ -54,10 +66,11 @@ If this returns inbox data, setup is complete.
 
 ## Auth commands
 
-    ${CLAUDE_PLUGIN_DATA}/omail auth login         # OAuth login (opens browser)
-    ${CLAUDE_PLUGIN_DATA}/omail --profile <name> auth login  # login to a named profile
-    ${CLAUDE_PLUGIN_DATA}/omail auth setup         # manual: server URL + Bearer token
-    ${CLAUDE_PLUGIN_DATA}/omail auth logout        # clear all stored credentials
+    ${CLAUDE_PLUGIN_DATA}/omail auth setup         # Add account (OAuth or manual)
+    ${CLAUDE_PLUGIN_DATA}/omail --profile <name> auth setup  # add account to a named profile
+    ${CLAUDE_PLUGIN_DATA}/omail auth login         # Re-authenticate existing profile
+    ${CLAUDE_PLUGIN_DATA}/omail auth logout        # clear credentials for current profile (keeps config)
+    ${CLAUDE_PLUGIN_DATA}/omail auth reset         # delete all profiles, credentials, and config
     ${CLAUDE_PLUGIN_DATA}/omail auth token <t>     # update Bearer token
     ${CLAUDE_PLUGIN_DATA}/omail auth whoami        # verify current session
     ${CLAUDE_PLUGIN_DATA}/omail auth refresh       # force refresh session cache
@@ -76,10 +89,43 @@ If this returns inbox data, setup is complete.
     ${CLAUDE_PLUGIN_DATA}/omail auth alias remove <profile> <alias> # remove alias
     ${CLAUDE_PLUGIN_DATA}/omail auth alias list [profile]           # list aliases
 
+## Report (send debug logs)
+
+Send system info and CLI debug logs (JSONL) as an email.
+Ask the user for the recipient email address, then run:
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth report <email>
+    ${CLAUDE_PLUGIN_DATA}/omail --profile work auth report <email>
+
 ## Multi-profile usage
 
     ${CLAUDE_PLUGIN_DATA}/omail --profile work mail +triage   # use "work" profile
     ${CLAUDE_PLUGIN_DATA}/omail --profile personal mail +send --to ...
+
+## Re-authenticate
+
+`omail auth login` re-authenticates the current profile.
+OAuth profiles re-open the browser for login. Manual profiles prompt for a new token.
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth login
+    ${CLAUDE_PLUGIN_DATA}/omail --profile work auth login
+
+## Logout
+
+Clear credentials (token + session cache) for the current profile but keep
+the profile config so the user can re-login without re-entering the server URL.
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth logout
+    ${CLAUDE_PLUGIN_DATA}/omail --profile work auth logout
+
+After logout, run `omail auth login` to re-authenticate.
+
+## Reset
+
+Delete all profiles, credentials, session caches, and the config file.
+This is a full factory reset — the user must set up from scratch.
+
+    ${CLAUDE_PLUGIN_DATA}/omail auth reset
 
 ## Diagnostics
 
