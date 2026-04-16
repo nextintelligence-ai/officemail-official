@@ -107,6 +107,10 @@ Ask the user for the recipient email address, then run:
 `omail auth login` re-authenticates the current profile.
 OAuth profiles re-open the browser for login. Manual profiles prompt for a new token.
 
+**Always execute the login command directly** — never tell the user to run it
+themselves. The command opens a browser for OAuth automatically; the user
+completes login there. No interactive input is needed for OAuth profiles.
+
     ${CLAUDE_PLUGIN_DATA}/omail auth login
     ${CLAUDE_PLUGIN_DATA}/omail --profile work auth login
 
