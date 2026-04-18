@@ -1,5 +1,15 @@
 # OfficeMail Official Marketplace 0.3
 
+> **Pre-release (RC) channel** — 이 브랜치는 정식 릴리즈 전 테스트용입니다.
+>
+> - 현재 RC 태그: `0.2.99-rc.e59f145`
+> - 안정 버전으로 복귀:
+>   `/plugin uninstall officemail@officemail-rc` 후
+>   `/plugin marketplace remove officemail-rc`
+> - RC 빌드의 플러그인 파일(스킬/MCP manifest)과 바이너리는 같은 빌드로부터
+>   동기화되지만, 안정 버전 대비 검증이 덜 되었을 수 있습니다.
+
+
 OfficeMail 서비스의 공식 마켓플레이스입니다.
 메일, 캘린더 등 OfficeMail이 제공하는 서비스를 AI 에이전트에서 사용할 수 있습니다.
 
