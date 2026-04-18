@@ -25,6 +25,7 @@ When installed as a plugin, the omail binary is at:
 | First-time setup, login, auth, doctor                              | omail-setup    |
 | Email: send, reply, triage, read, search, move, flag, draft, watch | omail-mail     |
 | Calendar: agenda, events, free/busy, RSVP, sharing                 | omail-calendar |
+| Contacts: list, search, add, update, delete, address books         | omail-contacts |
 
 ## Global flags
 
