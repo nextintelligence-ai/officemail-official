@@ -182,10 +182,16 @@ When the user says "reply to this email" without specifying which one:
     ${CLAUDE_PLUGIN_DATA}/omail mail mailbox get --params '{...}'
     ${CLAUDE_PLUGIN_DATA}/omail mail mailbox query --params '{...}'
     ${CLAUDE_PLUGIN_DATA}/omail mail mailbox set --json '{"create":{"m1":{"name":"Archive"}}}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail mailbox changes --params '{"sinceState":"<state>"}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail mailbox queryChanges --params '{"sinceQueryState":"<qs>","filter":{}}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email get --params '{"ids":["<id>"],"properties":["subject","from","bodyValues"]}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email query --params '{"filter":{"inMailbox":"INBOX"}}'
     ${CLAUDE_PLUGIN_DATA}/omail mail email set --json '{"update":{"<id>":{"mailboxIds":{"<mailboxId>":true}}}}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail email changes --params '{"sinceState":"<state>"}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail email queryChanges --params '{"sinceQueryState":"<qs>","filter":{}}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail email copy --json '{"fromAccountId":"<a>","accountId":"<b>","create":{"c1":{"id":"<msg>","mailboxIds":{"<mb>":true}}}}'
     ${CLAUDE_PLUGIN_DATA}/omail mail thread get --params '{"ids":["<id>"]}'
+    ${CLAUDE_PLUGIN_DATA}/omail mail thread changes --params '{"sinceState":"<state>"}'
 
 ## Notes
 

@@ -123,7 +123,10 @@ Contacts integrate with mail and calendar for workflows like
     ${CLAUDE_PLUGIN_DATA}/omail contacts contactcard get --params '{"ids":["..."]}'
     ${CLAUDE_PLUGIN_DATA}/omail contacts contactcard query --params '{"filter":{"text":"alice"}}'
     ${CLAUDE_PLUGIN_DATA}/omail contacts contactcard set --json '{"create":{"c1":{"fullName":"Test","emails":{"e1":{"address":"test@example.com"}}}}}'
+    ${CLAUDE_PLUGIN_DATA}/omail contacts contactcard changes --params '{"sinceState":"<state>"}'
+    ${CLAUDE_PLUGIN_DATA}/omail contacts contactcard queryChanges --params '{"sinceQueryState":"<qs>","filter":{}}'
     ${CLAUDE_PLUGIN_DATA}/omail contacts addressbook get --params '{}'
+    ${CLAUDE_PLUGIN_DATA}/omail contacts addressbook changes --params '{"sinceState":"<state>"}'
 
 ## Notes
 
