@@ -2,7 +2,7 @@
 
 > **Pre-release (RC) channel** — 이 브랜치는 정식 릴리즈 전 테스트용입니다.
 >
-> - 현재 RC 태그: `0.2.99-rc.67e7a91`
+> - 현재 RC 태그: `0.2.99-rc.0709157`
 > - RC 설치:
 >   - `/plugin marketplace add nextintelligence-ai/officemail-official@rc`
 >   - `/plugin install officemail@officemail-rc`
