@@ -175,6 +175,19 @@ When the user says "reply to this email" without specifying which one:
     ${CLAUDE_PLUGIN_DATA}/omail mail +search --query "report" --after "2026-03-18" --before "2026-03-25"
     ${CLAUDE_PLUGIN_DATA}/omail mail +search --after "2026-03-25" --limit 10
 
+### Search backend
+
+Free-text queries are routed to an OpenSearch-backed worker when one
+is reachable. The worker URL defaults to `search.{domain}` derived from
+the profile's `jmapUrl` (e.g. `jmap.officesuite.co.kr` →
+`search.officesuite.co.kr`); override with the `searchUrl` config field
+or `OMAIL_SEARCH_URL` env. If the worker is unreachable the search
+silently falls back to JMAP, so stacks without a worker keep working
+unchanged. Structured queries — `--after` / `--before`, `cc:`, `bcc:`,
+`messageid:`, `inreplyto:`, `references:`, or any combination of two
+text fields — always stay on JMAP. Same `--output json` shape in both
+cases.
+
 ### Draft for review
 
 1. `${CLAUDE_PLUGIN_DATA}/omail mail +draft --to <email> --subject "..." --body "..."`
